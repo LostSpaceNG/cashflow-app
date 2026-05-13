@@ -1,6 +1,14 @@
+import { useState } from 'react'
+import TransactionForm from './components/TransactionForm'
 import './App.css'
 
 function App() {
+  const [transactions, setTransactions] = useState([])
+
+  const addTransaction = (transaction) => {
+    setTransactions([...transactions, transaction])
+  }
+
   return (
     <div className="app">
       <header>
@@ -9,7 +17,11 @@ function App() {
       </header>
 
       <main>
-        <p>Coming soon: Transaction tracking, charts, and more!</p>
+        <TransactionForm onAddTransaction={addTransaction} />
+
+        <div className="transactions-preview">
+          <p>Transaktionen: {transactions.length}</p>
+        </div>
       </main>
     </div>
   )
