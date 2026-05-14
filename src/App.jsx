@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TransactionForm from './components/TransactionForm'
+import TransactionList from './components/TransactionList'
 import './App.css'
 
 function App() {
@@ -7,6 +8,10 @@ function App() {
 
   const addTransaction = (transaction) => {
     setTransactions([...transactions, transaction])
+  }
+
+  const deleteTransaction = (id) => {
+    setTransactions(transactions.filter(t => t.id !== id))
   }
 
   return (
@@ -18,10 +23,10 @@ function App() {
 
       <main>
         <TransactionForm onAddTransaction={addTransaction} />
-
-        <div className="transactions-preview">
-          <p>Transaktionen: {transactions.length}</p>
-        </div>
+        <TransactionList 
+          transactions={transactions}
+          onDeleteTransaction={deleteTransaction}
+        />
       </main>
     </div>
   )
