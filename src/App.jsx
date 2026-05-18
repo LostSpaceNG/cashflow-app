@@ -5,14 +5,21 @@ import TransactionList from './components/TransactionList'
 import './App.css'
 
 function App() {
-  const [transactions, setTransactions] = useState([])
+  const [transactions, setTransactions] = useState(() => {
+    const saved = localStorage.getItem('transactions')
+    return saved ? JSON.parse(saved) : []
+  })
 
   const addTransaction = (transaction) => {
-    setTransactions([...transactions, transaction])
+    const newTransactions = [...transactions, transaction]
+    setTransactions(newTransactions)
+    localStorage.setItem('transactions', JSON.stringify(newTransactions))
   }
 
   const deleteTransaction = (id) => {
-    setTransactions(transactions.filter(t => t.id !== id))
+    const newTransactions = transactions.filter(t => t.id !== id)
+    setTransactions(newTransactions)
+    localStorage.setItem('transactions', JSON.stringify(newTransactions))
   }
 
   return (
