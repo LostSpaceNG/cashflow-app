@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TransactionForm from './components/TransactionForm'
+import Summary from './components/Summary'
 import TransactionList from './components/TransactionList'
 import './App.css'
 
@@ -23,6 +24,7 @@ function App() {
 
       <main>
         <TransactionForm onAddTransaction={addTransaction} />
+        <Summary transactions={transactions} />
         <TransactionList 
           transactions={transactions}
           onDeleteTransaction={deleteTransaction}
