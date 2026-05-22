@@ -4,6 +4,16 @@ function TransactionForm({ onAddTransaction }) {
     const [amount, setAmount] = useState('')
     const [description, setDescription] = useState('')
     const [type, setType] = useState('expense')
+    const [category, setCategory] = useState('Sonstiges');
+
+    // Category based on type
+    const categories = {
+        income: ["Gehalt", "Freelance", "Gewerbe", "Sonstiges"],
+        expense: [
+            "Lebensmittel", "Wohnen", "Transport", "Rechnungen",
+            "Shopping", "Unterhaltung / Freizeit", "Gewerbe", "Sonstiges"
+        ]
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +28,7 @@ function TransactionForm({ onAddTransaction }) {
             amount: parseFloat(amount),
             description,
             type,
+            category,
             date: new Date().toISOString()
         }
 
@@ -27,6 +38,7 @@ function TransactionForm({ onAddTransaction }) {
         setAmount('')
         setDescription('')
         setType('expense')
+        setCategory('Sonstiges')
     }
 
     return (
@@ -38,6 +50,15 @@ function TransactionForm({ onAddTransaction }) {
                 <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="expense">Ausgabe</option>
                     <option value="income">Einnahme</option>
+                </select>
+            </div>
+
+            <div className="form-group">
+                <label>Kategorie:</label>
+                <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                    {categories[type].map(cat => (
+                        <option key={cat} value={cat}>{cat}</option>
+                    ))}
                 </select>
             </div>
 
