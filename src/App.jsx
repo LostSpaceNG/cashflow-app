@@ -1,26 +1,27 @@
-import { useState } from 'react'
-import TransactionForm from './components/TransactionForm'
-import Summary from './components/Summary'
-import TransactionList from './components/TransactionList'
-import './App.css'
+import { useState } from "react";
+import TransactionForm from "./components/TransactionForm";
+import Summary from "./components/Summary";
+import TransactionList from "./components/TransactionList";
+import Charts from "./components/Charts";
+import "./App.css";
 
 function App() {
   const [transactions, setTransactions] = useState(() => {
-    const saved = localStorage.getItem('transactions')
-    return saved ? JSON.parse(saved) : []
-  })
+    const saved = localStorage.getItem("transactions");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const addTransaction = (transaction) => {
-    const newTransactions = [...transactions, transaction]
-    setTransactions(newTransactions)
-    localStorage.setItem('transactions', JSON.stringify(newTransactions))
-  }
+    const newTransactions = [...transactions, transaction];
+    setTransactions(newTransactions);
+    localStorage.setItem("transactions", JSON.stringify(newTransactions));
+  };
 
   const deleteTransaction = (id) => {
-    const newTransactions = transactions.filter(t => t.id !== id)
-    setTransactions(newTransactions)
-    localStorage.setItem('transactions', JSON.stringify(newTransactions))
-  }
+    const newTransactions = transactions.filter((t) => t.id !== id);
+    setTransactions(newTransactions);
+    localStorage.setItem("transactions", JSON.stringify(newTransactions));
+  };
 
   return (
     <div className="app">
@@ -32,13 +33,14 @@ function App() {
       <main>
         <TransactionForm onAddTransaction={addTransaction} />
         <Summary transactions={transactions} />
-        <TransactionList 
+        <Charts transactions={transactions} />
+        <TransactionList
           transactions={transactions}
           onDeleteTransaction={deleteTransaction}
         />
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
